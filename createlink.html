@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>        
+        <script src="crudOperationApp.js"></script>
+        <script src="sureHttpService.js"></script>
+        <script src="featureBooleanDirective.js"></script>  
+        <script src="featureInputIntDirective.js"></script>
+        <script src="featureDropdownDirective.js"></script>
+        <script src="featureInputStrDirective.js"></script>		
+  </head>  
+  
+  <body>
+    <div ng-app="crudOperationApp" ng-controller="crudOperationCntrl">		
+
+    <h2 class="pageHeader myriadproRegular">Create path</h2><br/>
+        <br/>
+
+    <form class="form-horizontal" id="createTemplateForm" ng-init="requestPageData()" style="margin-left:40px;">	  
+        <div class="row">
+            <div class="col-xs-6">
+                <label class="control-label col-sm-4 floatLeft" for="pathName">path Name</label>
+                <input type="text" class="form-control floatLeft" id="pathName" name="pathName" value="" ng-model="path.pathName" />
+                {{path.pathName}}				
+			</div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-6">
+                <label class="control-label col-sm-4 floatLeft" for="pathType">Type</label>
+                <input type="text" class="form-control floatLeft" id="pathType" name="pathType" value="" ng-model="path.type" />
+                {{path.type}}
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-6">
+                <label class="control-label col-sm-4 floatLeft" for="subType">Sub Type</label>
+                <input type="text" class="form-control floatLeft" id="subType" name="subType" value="" ng-model="path.subType" />
+                {{path.subType}}
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row">
+			<div class="col-xs-6">
+            <label class="control-label col-sm-4 floatLeft" for="status">Status</label>
+            <select class="form-control floatLeft" ng-model="path.status" id="xmlType0">
+                <option value="">--Select--</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Disconnected">Disconnected</option>
+				<option value="None">None</option>
+            </select>
+            {{path.status}}
+			</div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-6">
+                <label class="control-label col-sm-4 floatLeft" for="aend">A End</label>
+                <input type="text" class="form-control floatLeft" id="aend" name="aend" value="" ng-model="path.aEndpoint" />
+                {{path.aEndpoint}}
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-6">
+                <label class="control-label col-sm-4 formLabel" for="zend">Z End</label>
+                <input type="text" class="form-control floatLeft" id="zend" name="zend" value="" ng-model="path.zEndpoint" />
+                {{path.zEndpoint}}
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-6">
+            <h4>Features</h4>        
+            <div class="form-control form-control-small" ng-repeat="feat in featureScopeVariable">
+                <div ng-if="feat.DataType == 'Boolean' "><div  feature-boolean-type ></div></div>
+                <div ng-if="feat.AllowedValues.length > 0 && feat.DataType != 'Boolean' "><div  feature-dropdown-type></div></div>
+                <div ng-if="feat.AllowedValues.length == 0 && feat.DataType == 'Integer' "><div  feature-input-int-type ></div></div>
+                <div ng-if="feat.AllowedValues.length == 0 && feat.DataType == 'String' "><div  feature-input-str-type></div></div> 				
+            </div> 
+        </div>
+        </div>
+        <br/>
+        <br/>
+        {{featureScopeVariable[0].name}}  - {{featureScopeVariable[0].value}}<br/>
+        {{featureScopeVariable[1].name}}  - {{featureScopeVariable[1].value}}<br/>
+        {{featureScopeVariable[2].name}}  - {{featureScopeVariable[2].value}}<br/>
+        {{featureScopeVariable[3].name}}  - {{featureScopeVariable[3].value}}<br/>
+        {{featureScopeVariable[4].name}}  - {{featureScopeVariable[4].value}}<br/>
+        {{featureScopeVariable[5].name}}  - {{featureScopeVariable[5].value}}<br/>
+        <br/>
+        <div class="row">
+            <div class="col-xs-6">
+            <h4>Sub Paths</h4>			
+            <table class="table table-bordered">            
+                <th>Path Name</th>
+				<th>UUID</h4>
+                <tr ng-repeat="path in subPaths"><td>{{path.SureName}}</td><td>{{path.UUID}}</td></tr>
+            </table>
+        </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="buttonWrapper">
+          <input type="button" value="Save" id="save" ng-click="savepath()" class="btn btn-success" />
+        </div>
+		<br/>
+        <br/>
+    </form>        
+    </div>	
+  </body>
+</html>
